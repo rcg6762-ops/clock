@@ -5,7 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="format-detection" content="telephone=no">
+    <meta name="theme-color" content="#222222">
+    <meta name="description" content="高精度毫秒级时钟显示">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
     <title>毫秒时钟</title>
     <style>
         body {
@@ -45,6 +50,15 @@
     </div>
 
     <script>
+        // 注册 Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(registration => console.log('ServiceWorker registration successful'))
+                    .catch(err => console.log('ServiceWorker registration failed: ', err));
+            });
+        }
+
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
