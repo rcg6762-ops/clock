@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>毫秒时钟</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+            font-family: Arial, sans-serif;
+        }
+        .clock {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255,255,255,0.2);
+            color: #0ff;
+            font-size: 50px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .milliseconds {
+            font-size: 30px;
+            color: #0aa;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock">
+        <span id="hours">00</span>:
+        <span id="minutes">00</span>:
+        <span id="seconds">00</span>.
+        <span id="milliseconds" class="milliseconds">000</span>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const milliseconds = String(now.getMilliseconds()).padStart(3, '0');
+
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+            document.getElementById('milliseconds').textContent = milliseconds;
+
+            // 使用requestAnimationFrame来实现更流畅的更新
+            requestAnimationFrame(updateClock);
+        }
+
+        // 启动时钟
+        updateClock();
+    </script>
+</body>
+</html>
